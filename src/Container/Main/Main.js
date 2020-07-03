@@ -10,7 +10,8 @@ import Loader from '../../UI/Loader/Loader';
 class Main extends Component {
     state={
         users:null,
-        name:null
+        name:null,
+        post:null
     }
     componentDidMount(){
        this.getSearch();
@@ -57,7 +58,14 @@ class Main extends Component {
                 uname
             });
         
-            })
+            }).then(
+                Axios.get(`https://jsonplaceholder.typicode.com/posts`)
+                .then(resp=>{
+                    this.setState({
+                        post:resp.data
+                    })
+                })
+            )
             .catch(error=>console.log("Get user error",error));
         }
         
@@ -79,8 +87,8 @@ class Main extends Component {
         return (
             <div className="container-fluid">
                 <h1>Main</h1>
-                <Autocomplete search={(uname)=>this.searchuser(uname)} suggestions={this.state.name} userid={this.state.id}/>
-                {this.state.users ? <Route path="/" render={()=> <Users users={this.state.users}/>}/>:<Loader />}
+                <Autocomplete search={(uname)=>this.searchuser(uname)} suggestions={this.state.name}  userid={this.state.id}/>
+                {this.state.users ? <Route path="/" render={()=> <Users users={this.state.users} post={this.state.post}/>}/>:<Loader />}
                 
             </div>
         )

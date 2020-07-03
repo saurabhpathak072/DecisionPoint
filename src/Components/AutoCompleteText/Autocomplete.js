@@ -62,7 +62,6 @@ class Autocomplete extends Component {
   // Event fired when the user presses a key down
   onKeyDown = async e => {
     const { activeSuggestion, filteredSuggestions } = this.state;
-    console.log("event",e.target.value);
     if(e.target.value === '' ){
       if (e.keyCode === 13) {
         await this.setState({
@@ -77,7 +76,7 @@ class Autocomplete extends Component {
     // User pressed the enter key, update the input and close the
     // suggestions
     else if (e.keyCode === 13) {
-      console.log("filteredSuggestions[activeSuggestion]",filteredSuggestions[activeSuggestion]);
+      
       if(filteredSuggestions[activeSuggestion] === undefined){
         await this.setState({
           activeSuggestion: 0,
