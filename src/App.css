@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.suggestion-active{
+  background-color: #008f68;
+  color: #fae042;
+  cursor: pointer;
+  font-weight: 700;
+}
