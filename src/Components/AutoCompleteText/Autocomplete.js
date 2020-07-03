@@ -56,20 +56,43 @@ class Autocomplete extends Component {
       showSuggestions: false,
       userInput: e.currentTarget.innerText
     });
+    this.props.search(e.currentTarget.innerText);
   };
 
   // Event fired when the user presses a key down
-  onKeyDown = e => {
+  onKeyDown = async e => {
     const { activeSuggestion, filteredSuggestions } = this.state;
-
+    console.log("event",e.target.value);
+    if(e.target.value == '' ){
+      if (e.keyCode === 13) {
+        await this.setState({
+          activeSuggestion: 0,
+          showSuggestions: false,
+          userInput: ''
+        });
+         this.props.search(this.state.userInput);
+        
+      }
+    }
     // User pressed the enter key, update the input and close the
     // suggestions
-    if (e.keyCode === 13) {
-      this.setState({
+    else if (e.keyCode === 13) {
+      console.log("filteredSuggestions[activeSuggestion]",filteredSuggestions[activeSuggestion]);
+      if(filteredSuggestions[activeSuggestion] === undefined){
+        await this.setState({
+          activeSuggestion: 0,
+          showSuggestions: false,
+          userInput: e.target.value
+        });
+      }else
+      {await this.setState({
         activeSuggestion: 0,
         showSuggestions: false,
         userInput: filteredSuggestions[activeSuggestion]
-      });
+      });}
+
+       this.props.search(this.state.userInput);
+      
     }
     // User pressed the up arrow, decrement the index
     else if (e.keyCode === 38) {
@@ -105,6 +128,8 @@ class Autocomplete extends Component {
     let suggestionsListComponent;
     const suggClasses = ['list-group',classes.suggestions];
 
+    
+
     if (showSuggestions && userInput) {
       if (filteredSuggestions.length) {
         suggestionsListComponent = (
@@ -131,8 +156,8 @@ class Autocomplete extends Component {
         );
       } else {
         suggestionsListComponent = (
-          <div class="no-suggestions">
-            <em>No suggestions, you're on your own!</em>
+          <div className="no-suggestions">
+            
           </div>
         );
       }
@@ -146,6 +171,7 @@ class Autocomplete extends Component {
           onChange={onChange}
           onKeyDown={onKeyDown}
           value={userInput}
+          
           placeholder="Search By Username..."
         />
         {suggestionsListComponent}
