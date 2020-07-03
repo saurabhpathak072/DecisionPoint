@@ -6,6 +6,7 @@ import {Route} from 'react-router-dom';
 import Users from '../../Components/Users/Users';
 import Autocomplete from '../../Components/AutoCompleteText/Autocomplete';
 import Loader from '../../UI/Loader/Loader';
+import UserPost from '../UserPost/UserPost'; 
 
 class Main extends Component {
     state={
@@ -87,9 +88,13 @@ class Main extends Component {
         return (
             <div className="container-fluid">
                 <h1>Main</h1>
+
                 <Autocomplete search={(uname)=>this.searchuser(uname)} suggestions={this.state.name}  userid={this.state.id}/>
-                {this.state.users ? <Route path="/" render={()=> <Users users={this.state.users} post={this.state.post}/>}/>:<Loader />}
                 
+                <switch>
+                {this.state.users ? <Route path="/" exact render={()=> <Users users={this.state.users} post={this.state.post}/>}/>:<Loader />}
+                    <Route path="/post"render={()=><UserPost/>}/>
+                </switch>
             </div>
         )
     }
