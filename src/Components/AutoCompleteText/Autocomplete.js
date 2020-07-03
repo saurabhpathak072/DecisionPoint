@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classes from './Autocomplete.module.css';
 
@@ -63,7 +63,7 @@ class Autocomplete extends Component {
   onKeyDown = async e => {
     const { activeSuggestion, filteredSuggestions } = this.state;
     console.log("event",e.target.value);
-    if(e.target.value == '' ){
+    if(e.target.value === '' ){
       if (e.keyCode === 13) {
         await this.setState({
           activeSuggestion: 0,

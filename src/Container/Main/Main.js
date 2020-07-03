@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './Main.module.css';
+// import classes from './Main.module.css';
 import Axios from 'axios';
 
 import {Route} from 'react-router-dom';
@@ -21,9 +21,7 @@ class Main extends Component {
         if(name){
             Axios.get(`https://jsonplaceholder.typicode.com/users?name=${name}`)
             .then(res=>{
-                if(!res){
-                    <Loader />
-                }else if(res.data.length === 0){
+                if(res.data.length === 0){
                     
                     Axios.get(`https://jsonplaceholder.typicode.com/users?id=${name}`)
                     .then(res2=>{
