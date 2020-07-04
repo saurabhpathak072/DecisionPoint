@@ -87,13 +87,14 @@ class Main extends Component {
        
         return (
             <div className="container-fluid">
-                <h1>Main</h1>
+                <h1>Users Post</h1>
 
-                <Autocomplete search={(uname)=>this.searchuser(uname)} suggestions={this.state.name}  userid={this.state.id}/>
+                {/* <Autocomplete search={(uname)=>this.searchuser(uname)} suggestions={this.state.name}  userid={this.state.id}/> */}
                 
                 <Switch>
-                {this.state.users ? <Route path="/" exact render={()=> <Users users={this.state.users} post={this.state.post}/>}/>:<Loader />}
-                    <Route path="/post" exact render={()=><UserPost/>}/>
+                <Route path="/post"  render={()=><UserPost/>}/>
+                {this.state.users ? <Route path="/" exact render={()=> <Users search={(uname)=>this.searchuser(uname)} users={this.state.users} name={this.state.name} post={this.state.post}/>}/>:<Loader />}
+                   
                 </Switch>
             </div>
         )

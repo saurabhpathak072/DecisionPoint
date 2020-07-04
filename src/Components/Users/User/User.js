@@ -10,8 +10,8 @@ function User(props) {
         props.history.push(`/post?username=${props.user.id}`);
     }
     const posts = props.post && props.post.map(post=>{
-        if(post.id===props.user.id)
-    return <span key={post.id}>{post.title}</span>
+        if(post.userId===props.user.id)
+    return <li key={post.id}>{post.title}</li>
     else return null;
         
     })
@@ -22,7 +22,7 @@ function User(props) {
                 <div className="card-body">
                     <h5 className="card-title">{props.user.name} </h5>
                     <p className="card-text">UID: {props.user.id}</p>
-                    <p>Posts:{posts}</p>
+                    <ol>Posts:{posts}</ol>
                     <p className="card-text">Address : {props.user.address.city}, {props.user.address.street}, {props.user.address.suite}, {props.user.address.zipcode}</p>
                     <small>Phone:{props.user.phone}  Mail:{props.user.email} </small>
                     <p><small>{props.user.website}</small></p>

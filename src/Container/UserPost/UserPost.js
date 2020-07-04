@@ -31,7 +31,7 @@ function UserPost(props) {
     
   
     let postList = [];
-    console.log(post);
+    console.log(props);
         postList =  post.map(p=>{
         return (
             <div key={p.id} className={classes.userpost}>
@@ -48,10 +48,13 @@ function UserPost(props) {
             </div>
         )
         })
-    
+    const goBackPost =()=>{
+        props.history.goBack();
+    }
     
     return (
         <>
+        <button onClick={goBackPost} type="button" class="btn btn-primary">Go Back</button>
          {postList? postList :<Loader />}
         </> 
         )
