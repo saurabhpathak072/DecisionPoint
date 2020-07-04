@@ -93,7 +93,7 @@ class Main extends Component {
                 
                 <Switch>
                 {this.state.users ? <Route path="/" exact render={()=> <Users users={this.state.users} post={this.state.post}/>}/>:<Loader />}
-                    <Route path="/post" render={()=><UserPost/>}/>
+                    <Route path="/post" exact render={()=><UserPost/>}/>
                 </Switch>
             </div>
         )
