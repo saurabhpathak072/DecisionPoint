@@ -1,13 +1,26 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
+import classes from './UserPost.module.css';
 import {withRouter} from 'react-router-dom';
+ import Loader from '../../UI/Loader/Loader';
+import Axios from 'axios';
+
 
 function UserPost(props) {
-    
-    const query = new URLSearchParams(props.location.search);
-    const posts={};
+   
     let userID=0;
+    const[post,setPost]= useState([]);
+    useEffect(
+        ()=>{
+            
+            Axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userID}`)
+            .then(resq=>{
+                setPost(resq.data);
+            }).catch(error=>console.log(error));
+        },[userID]
+    );
+    const query = new URLSearchParams(props.location.search);
+    
     for(let param of query.entries()){
-        console.log(param);
         if(param[0]==='username'){
             userID=param[1];
         }else{
@@ -15,18 +28,36 @@ function UserPost(props) {
         }
         
     }
+    
+  
+    let postList = [];
+    console.log(post);
+        postList =  post.map(p=>{
+        return (
+            <div key={p.id} className={classes.userpost}>
+            <div  className="list-group">
+                <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
+                    <div className="d-flex w-100 justify-content-between">
+                        <h5 className="mb-1">{p.title}</h5>
+                        <small>{p.id}</small>
+                    </div>
+                    <p className="mb-1">{p.body}</p>
+                    <small>Donec id elit non mi porta.</small>
+                </a>
+            </div>
+            </div>
+        )
+        })
+    
+    
     return (
-        <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">List group item heading</h5>
-            <small class="text-muted">3 days ago</small>
-          </div>
-          <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-          <small class="text-muted">Donec id elit non mi porta.</small>
-        </a>
-       </div>
-    )
-}
+        <>
+         {postList? postList :<Loader />}
+        </> 
+        )
+    }
+
+
+
 
 export default withRouter(UserPost);

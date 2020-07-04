@@ -7,7 +7,7 @@ function User(props) {
 
 
     const fullPostHandler = ()=>{
-        props.history.push('/post');
+        props.history.push(`/post?username=${props.user.id}`);
     }
     const posts = props.post && props.post.map(post=>{
         if(post.id===props.user.id)

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import classes from './Main.module.css';
 import Axios from 'axios';
 
-import {Route} from 'react-router-dom';
+import {Route,Switch} from 'react-router-dom';
 import Users from '../../Components/Users/Users';
 import Autocomplete from '../../Components/AutoCompleteText/Autocomplete';
 import Loader from '../../UI/Loader/Loader';
@@ -91,10 +91,10 @@ class Main extends Component {
 
                 <Autocomplete search={(uname)=>this.searchuser(uname)} suggestions={this.state.name}  userid={this.state.id}/>
                 
-                <switch>
+                <Switch>
                 {this.state.users ? <Route path="/" exact render={()=> <Users users={this.state.users} post={this.state.post}/>}/>:<Loader />}
-                    <Route path="/post"render={()=><UserPost/>}/>
-                </switch>
+                    <Route path="/post" render={()=><UserPost/>}/>
+                </Switch>
             </div>
         )
     }
